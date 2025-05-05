@@ -436,6 +436,76 @@ window.addEventListener('message', (event) => {
                 />
             </StrictMode>
         );
+    } else if (data.type === 'openProgressBar') {
+        root.render(
+            <StrictMode>
+                <App
+                    lockType="progress"
+                    initialData={{
+                        duration: data.duration,
+                        label: data.label,
+                        useWhileDead: data.useWhileDead,
+                        allowRagdoll: data.allowRagdoll,
+                        allowSwimming: data.allowSwimming,
+                        allowCuffed: data.allowCuffed,
+                        allowFalling: data.allowFalling,
+                        canCancel: data.canCancel,
+                        style: data.style,
+                        anim: data.anim,
+                        scenario: data.scenario,
+                        playEnter: data.playEnter,
+                        prop: data.prop,
+                        disable: data.disable
+                    }}
+                    onComplete={(success) => {
+                        fetch('https://moon-ui/progressComplete', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ success })
+                        });
+                        if (success) {
+                            root.render(null);
+                        }
+                    }}
+                    visible={true}
+                    onClose={() => {
+                        fetch('https://moon-ui/closeUI', {
+                            method: 'POST'
+                        });
+                        root.render(null);
+                    }}
+                />
+            </StrictMode>
+        );
+    } else if (data.type === 'openSliderLock') {
+        root.render(
+            <StrictMode>
+                <App
+                    lockType="slider"
+                    initialData={{
+                        sliders: data.sliders,
+                        timeLimit: data.timeLimit
+                    }}
+                    onComplete={(success) => {
+                        fetch('https://moon-ui/sliderComplete', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ success })
+                        });
+                        if (success) {
+                            root.render(null);
+                        }
+                    }}
+                    visible={true}
+                    onClose={() => {
+                        fetch('https://moon-ui/closeUI', {
+                            method: 'POST'
+                        });
+                        root.render(null);
+                    }}
+                />
+            </StrictMode>
+        );
     } else if (data.type === 'openContextMenu') {
             root.render(
                 <StrictMode>
@@ -516,7 +586,7 @@ window.addEventListener('message', (event) => {
             data.type === 'keycardResult' || data.type === 'mathPuzzleResult' ||
             data.type === 'anagramResult' || data.type === 'mazeResult' ||
             data.type === 'wireCuttingResult' || data.type === 'safeResult' ||
-            data.type === 'precisionRingResult' || data.type === 'imageResult' ||
+            data.type === 'precisionRingResult' || data.type === 'imageResult' || data.type === 'progressResult' || data.type === 'sliderResult' ||
             data.type === 'hackersTerminalResult') {
         if (data.success) {
             root.render(null);

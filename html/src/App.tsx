@@ -17,10 +17,12 @@ import { InputForm } from './components/InputForm/InputForm';
 import { AlertDialog } from './components/ui/AlertDialog';
 import { ContextMenu } from './components/ui/ContextMenu';
 import { HackersTerminalLock } from './components/locks/HackersTerminalLock';
+import { ProgressBar } from './components/ui/ProgressBar';
+import { SliderLock } from './components/locks/SliderLock';
 
 type LockType = 'pattern' | 'pin' | 'keypad' | 'color' | 'gesture' | 'swipe' | 'keycard' | 
                 'math' | 'anagram' | 'maze' | 'wire' | 'safe' | 'precision' | 'image' | 
-                'input' | 'alert' | 'contextMenu' | 'hackersTerminal';
+                'input' | 'alert' | 'contextMenu' | 'hackersTerminal' | 'progress' | 'slider';
 
 interface AppProps {
   lockType?: LockType;
@@ -52,6 +54,22 @@ function App({ lockType = 'pattern', initialData, onComplete, visible, onClose }
           visible={visible}
           onClose={onClose}
           position={initialData.position}
+        />
+      )}
+      {lockType === 'slider' && (
+        <SliderLock
+          onComplete={onComplete}
+          visible={visible}
+          onClose={onClose}
+          initialData={initialData}
+        />
+      )}
+      {lockType === 'progress' && (
+        <ProgressBar
+          onComplete={onComplete}
+          visible={visible}
+          onClose={onClose}
+          initialData={initialData}
         />
       )}
       {lockType === 'alert' && (

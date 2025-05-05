@@ -198,7 +198,7 @@ RegisterCommand('testinput', function()
             icon = 'mail',
             placeholder = 'your@email.com',
             required = true,
-            pattern = '[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$'
+            pattern = '[a-z0-9._%-]@[a-z0-9.-]\\.[a-z]{2,}$'
         },
         {
             id = 'password',
@@ -393,4 +393,68 @@ RegisterCommand('testhacker', function()
     )
 end)
 
+-- ProgressBar
+RegisterCommand('testlockpick', function()
+    -- Progress bar with animation and prop
+    exports['moon-ui']:OpenProgressBar({
+        duration = 10000, -- 10 seconds
+        label = 'Picking Lock',
+        useWhileDead = false,
+        allowRagdoll = false,
+        style = 'minimal', -- radial / minimal / bar
+        canCancel = false,
+        disable = {
+            move = false,
+            car = true,
+            combat = true
+        },
+        anim = {
+            dict = 'anim@amb@clubhouse@tutorial@bkr_tut_ig3@',
+            clip = 'machinic_loop_mechandplayer'
+        },
+        prop = {
+            model = 'prop_tool_screwdvr02',
+            bone = 57005,
+            pos = { x = 0.14, y = 0.0, z = -0.01 },
+            rot = { x = 0.0, y = 90.0, z = 0.0 }
+        }
+    }, function(success)
+        if success then
+            print('Lock picked successfully!')
+        else
+            print('Lock picking failed!')
+        end
+    end)
+end)
 
+-- Slider Lock
+RegisterCommand('testsliders', function()
+    local sliders = {
+        {
+            id = "voltage",
+            label = "Power Supply Voltage",
+            target = 75,  -- Target value (75%)
+            tolerance = 2 -- Must be within 2% of target
+        },
+        {
+            id = "frequency",
+            label = "Signal Frequency",
+            target = 45,
+            tolerance = 3
+        },
+        {
+            id = "amplitude",
+            label = "Wave Amplitude",
+            target = 60,
+            tolerance = 1
+        }
+    }
+
+    exports['moon-ui']:OpenSliderLock(sliders, 20, function(success)
+        if success then
+            print('Calibration successful!')
+        else
+            print('Calibration failed!')
+        end
+    end)
+end)
