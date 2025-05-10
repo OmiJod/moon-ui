@@ -20,4 +20,4 @@ When incorporating this work into your own project, you must:
 
 ## Source Code
 
-The original source code is available at: [https://github.com/overextended/ox_lib](https://github.com/overextended/ox_lib)
+The original source code is available at: [https://github.com/OmiJod/moon-ui](https://github.com/OmiJod/moon-ui/)
